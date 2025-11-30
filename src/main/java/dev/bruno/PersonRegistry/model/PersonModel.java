@@ -1,8 +1,9 @@
 package dev.bruno.PersonRegistry.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
-
+@Builder
 @Table(name = "person")
 @Entity
 public class PersonModel {
@@ -24,7 +25,8 @@ public class PersonModel {
     public PersonModel() {
     }
 
-    public PersonModel(String name, String email, AdressModel adress) {
+    public PersonModel(Long id, String name, String email, AdressModel adress) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.adress = adress;
