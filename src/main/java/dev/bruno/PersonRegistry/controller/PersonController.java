@@ -5,11 +5,10 @@ import dev.bruno.PersonRegistry.service.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "/api/person")
+@RequestMapping("/api/person")
 public class PersonController {
 
     private final PersonService personService;
@@ -18,22 +17,22 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @GetMapping
+    @GetMapping("/findall")
     public ResponseEntity<List<PersonModel>> findAll() {
         return personService.findAll().isEmpty() ?
                 ResponseEntity.noContent().build() :
                 ResponseEntity.ok(personService.findAll());
     }
 
-    @GetMapping
-    public ResponseEntity<PersonModel> findById(@PathVariable Long id) {
+    @GetMapping("/list")
+    public ResponseEntity<PersonModel> findById(Long id) {
         return personService.findById(id) == null ? ResponseEntity.noContent().build() :
                 ResponseEntity.ok(personService.findById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<PersonModel> createPerson(@RequestBody PersonModel personModel) {
-        personService.createPerson(personModel);
+    @PostMapping("/create")
+    public ResponseEntity<PersonModel> createPerson(@RequestBody PersonModel newPerson) {
+        personService.createPerson(newPerson);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

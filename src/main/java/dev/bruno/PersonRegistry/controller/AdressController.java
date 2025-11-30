@@ -6,7 +6,6 @@ import dev.bruno.PersonRegistry.service.AdressService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -19,20 +18,20 @@ public class AdressController {
         this.adressService = adressService;
     }
 
-    @GetMapping
+    @GetMapping("/findall")
     public ResponseEntity<List<AdressModel>> findAll() {
         return adressService.findAll().isEmpty() ?
                 ResponseEntity.noContent().build() :
                 ResponseEntity.ok(adressService.findAll());
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<AdressModel> findById(@PathVariable Long id) {
         return adressService.findById(id) == null ? ResponseEntity.noContent().build() :
                 ResponseEntity.ok(adressService.findById(id));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<PersonModel> createAdress(@RequestBody AdressModel adressModel) {
         adressService.createPerson(adressModel);
         return ResponseEntity.status(HttpStatus.CREATED).build();
