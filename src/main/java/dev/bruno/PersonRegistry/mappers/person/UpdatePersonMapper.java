@@ -14,6 +14,15 @@ public class UpdatePersonMapper {
         );
     }
 
+    public void merge(PersonModel personModel, UpdatePersonDTO updatePersonDTO) {
+        if (updatePersonDTO.name() != null) {
+            personModel.setName(updatePersonDTO.name());
+        }
+        if (updatePersonDTO.adressModel() != null) {
+            personModel.setAdress(updatePersonDTO.adressModel());
+        }
+    }
+
     public UpdatePersonDTO dtoToEntity(PersonModel personModel) {
         return new UpdatePersonDTO(
                 personModel.getName(),

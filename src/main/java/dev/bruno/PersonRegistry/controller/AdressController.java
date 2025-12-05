@@ -23,14 +23,14 @@ public class AdressController {
     @GetMapping("/all")
     public ResponseEntity<List<ListAdressDTO>> adressGetAll() {
         return adressService.adressGetAll().isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).body(null) :
+                ResponseEntity.noContent().build() :
                 ResponseEntity.ok(adressService.adressGetAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ListAdressDTO> adressGetById(Long id) {
-        return adressService.adressById(id) == null ? ResponseEntity
-                .status(HttpStatus.NOT_FOUND).build() :
+        return adressService.adressById(id) == null ?
+                ResponseEntity.notFound().build() :
                 ResponseEntity.ok(adressService.adressById(id));
     }
 
@@ -43,7 +43,7 @@ public class AdressController {
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteAdress(@PathParam("id") Long id) {
         if(adressService.adressById(id) == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.notFound().build();
         }else{
             adressService.deleteById(id);
             return ResponseEntity.ok().build();
@@ -52,7 +52,7 @@ public class AdressController {
 
     @PutMapping("/{id}")
     public ResponseEntity<UpdateAdressDTO> updatePerson(@PathVariable Long id, @RequestBody UpdateAdressDTO updateAdressDTO) {
-        return adressService.adressById(id) == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
+        return adressService.adressById(id) == null ? ResponseEntity.notFound().build() :
                 ResponseEntity.ok(adressService.alterAdress(id, updateAdressDTO));
     }
 }

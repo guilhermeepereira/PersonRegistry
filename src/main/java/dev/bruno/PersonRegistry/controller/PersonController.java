@@ -24,19 +24,19 @@ public class PersonController {
     @GetMapping("/all")
     public ResponseEntity<List<ListPersonDTO>> personGetAll() {
         return personService.personFindAll().isEmpty() ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
+                ResponseEntity.notFound().build() :
                 ResponseEntity.ok(personService.personFindAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ListPersonDTO> personGetById(@PathVariable Long id) {
         return personService.personFindById(id) == null ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
+                ResponseEntity.notFound().build() :
                 ResponseEntity.ok(personService.personFindById(id));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<CreatePersonDTO> createPerson(@Valid @RequestBody CreatePersonDTO newPerson) {
+    public ResponseEntity<CreatePersonDTO> createPerson(@RequestBody CreatePersonDTO newPerson) {
         personService.createPerson(newPerson);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -44,7 +44,7 @@ public class PersonController {
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deletePerson(@PathParam("id") Long id) {
         if(personService.personFindById(id) == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.notFound().build();
         }else{
          personService.personDeleteById(id);
          return ResponseEntity.ok().build();
@@ -53,7 +53,7 @@ public class PersonController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<UpdatePersonDTO> updatePerson(@PathVariable Long id, @RequestBody UpdatePersonDTO updatePersonDTO) {
-        return personService.personFindById(id) == null ? ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
+        return personService.personFindById(id) == null ? ResponseEntity.notFound().build() :
                 ResponseEntity.ok(personService.updatePerson(id, updatePersonDTO));
     }
 }
