@@ -40,8 +40,8 @@ public class AdressController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteAdress(@PathParam("id") Long id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteAdress(@PathVariable Long id) {
         if(adressService.adressById(id) == null) {
             return ResponseEntity.notFound().build();
         }else{

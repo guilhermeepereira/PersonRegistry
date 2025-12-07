@@ -4,7 +4,6 @@ import dev.bruno.PersonRegistry.dtos.person.CreatePersonDTO;
 import dev.bruno.PersonRegistry.dtos.person.ListPersonDTO;
 import dev.bruno.PersonRegistry.dtos.person.UpdatePersonDTO;
 import dev.bruno.PersonRegistry.service.PersonService;
-import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
